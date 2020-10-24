@@ -9,7 +9,7 @@ var generateBtn = document.querySelector("#generate");
     specialChar: ["!", "@", "#", "$", "%", "^", "&", "*"],
     charactersNeeded: [],
   }
-
+ 
   console.log(passwordCharacters);
   
   //Prompt user for password requirements including number and type of characters needed//
@@ -31,31 +31,44 @@ function generatePassword() {
     console.log(passwordCharacters.charactersNeeded)
   }
 
-  if (passLower === true) {
+  if (passLower === true) { //lowercase
     passwordCharacters.charactersNeeded = passwordCharacters.lowerCase.concat(passwordCharacters.charactersNeeded);
-    console.log(passwordCharacters.charactersNeeded)
+    console.log("yes to lowercase:", passwordCharacters.charactersNeeded)
   }
 
   if (passNum === true) {
     passwordCharacters.charactersNeeded = passwordCharacters.numbers.concat(passwordCharacters.charactersNeeded);
-    console.log(passwordCharacters.charactersNeeded)
+    console.log("yes to nums:",passwordCharacters.charactersNeeded)
   }
 
   if (passSpecial === true) {
     passwordCharacters.charactersNeeded = passwordCharacters.specialChar.concat(passwordCharacters.charactersNeeded);
-    console.log(passwordCharacters.charactersNeeded)
+    console.log("yes to chars needed:",passwordCharacters.charactersNeeded)
   }
-
-  for (i = 0; i < passLength + 1; i++) {
-    return;
+  //we loop over the array the amt of times the user specifies 
+var array = passwordCharacters.charactersNeeded;
+console.log(passLength);
+  //iterate  selected number of times...setting loop length
+  var num;
+  var finalArray =[];
+  for (let index = 0; index < passLength; index++){
+    //randomize that many times
+    num = Math.floor(Math.random()*array.length)
+    element = array[index] //creating a new index which is the random character
+    //push into the final version of an array
+    finalArray.push(element)
   }
+  return finalArray.join(" ");
 }
 
 // Write password to the #password input
 function writePassword() {
+  //call the generatepw func and assign to password variable
   var password = generatePassword();
+  //select the html document area where the passwrd will go assign it to a variable
   var passwordText = document.querySelector("#password");
 
+  //assign password which is the function, to the value of the textarea 
   passwordText.value = password;
 }
 
